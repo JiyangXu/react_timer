@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import React,{useState, useEffect} from 'react'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export const App = () => {
+    const [counter, setCounter] = useState(0);
+    let timer
+
+    useEffect(()=> {
+        timer = setTimeout(() => setCounter(counter + 1), 1000);
+    }, [counter]
+    )
+   
+    const handleStop=()=>{
+        clearInterval(timer)
+    }
+
+    const handleResume=(counter)=>{
+        timer = setTimeout(() => setCounter(counter + 1), 1000);
+    }
+
+    return (
+        <>
+            <p> {counter} </p>
+            <button onClick={handleStop}>stop</button>
+            <button onClick={()=>handleResume(counter)}>resume</button>
+        </>
+    )
 }
 
-export default App;
+export default App
